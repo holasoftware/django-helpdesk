@@ -1,0 +1,108 @@
+{% extends 'helpdesk/ticket_base.html' %}
+{% load i18n static %}
+
+{% block breadcrumbs %}{{ super.block }} &rsaquo; {% trans 'Comments' %}{% endblock %}
+
+    
+{% block content %}
+<div id="ticket-comments" class="ticket" data-ticket-id="{{ ticket.id }}" data-comments-page="{{ comments_page.number }}">
+    <div id="ticket-comments-interior">
+        <div id="ticket-info">
+            <h1 class="subject">{{ ticket.subject }} <a href="{% url 'admin:helpdesk_ticket_edit_status' ticket_id=ticket.id %}" class="pill ticket-status ticket-status-{{ ticket.status_verbose | lower }} ticket-{% if ticket.is_closed %}closed{% else %}opened{% endif %}-status">{{ ticket.status_verbose | title }}</a></h1>
+            <p>
+              by <a href="#" class="ticket-author link2 link2-unstyled">{{ ticket.get_author_name }}</a> at <span id="ticket-date">{{ ticket.date | naturaldatetime }}</span> <span id="ticket-time">23:22</span>. <a id="reply-ticket-link" href="{% url 'admin:helpdesk_ticket_new_comment' ticket_id=ticket.id %}" class="link1">{% trans 'Reply ticket' %}</a>
+            </p>
+            <div class='ticket-body'><b>{% trans 'Description:' %}</b> {{ ticket.subject }}</div>
+            <p class="num-replies">{{ ticket.get_customer_comments.count }} customer replies<br>{{ ticket.get_support_team_comments.count }} replies from support team by {{ ticket.get_support_team_members_commenting.count }} member/s</p>
+            <div class="ticket-metadata">
+              <p><b>{% trans "Customer:" %}</b> <a href="#" class="ticket-customer username link2 link2-unstyled">{{ ticket.customer }}</a></p>
+              <p><b>{% trans "Problem category:" %}</b> {% if ticket.problem_category %}{{ ticket.problem_category.name }}{% else %}{% trans '(No category)' %}{% endif %} <a href="{% url 'admin:helpdesk_ticket_edit_problem_category' ticket_id=ticket.id %}" class="link1">{% translate 'Edit category' %}</a></p>
+            </div>
+
+            <div class="ticket-actions"><form><button type="submit" name="action_name" value="close-ticket" id="btn-close-ticket" class="link1 apperance-none">{% trans "Close ticket" %}</button> <button type="submit" name="action_name" value="unfollow-ticket" id="btn-unfollow-ticket" class="link1 apperance-none">{% trans "Unfollow ticket" %}</button></form></div>
+        </div>
+
+
+        <!-- <nav class="pagination">
+        <ul>
+        {% if post_page.has_previous %}
+        <li><a href="{% url 'post_type_index' language_path_prefix=language_path_prefix post_type=post_type post_page_num=post_page.previous_page_number %}" class="page-link prev">Prev</a></li>
+        {% else %}
+        <li class="disabled"><span class="prev">Prev</span></li>
+        {% endif %}
+        {% for i in post_page.paginator.page_range %}
+        {% if post_page.number == i %}
+        <li class="active"><span class="current">{{ i }}</span></li>
+        {% else %}
+        <li><a href="{% url 'post_type_index' language_path_prefix=language_path_prefix post_type=post_type post_page_num=i %}" class="page-link">{{ i }}</a></li>
+        {% endif %}
+        {% endfor %}
+        {% if post_page.has_next %}
+        <li><a href="{% url 'post_type_index' language_path_prefix=language_path_prefix post_type=post_type post_page_num=post_page.next_page_number %}" class="page-link next">Next</a></li>
+        {% else %}
+        <li class="disabled"><span class="next">Next</span></li>
+        {% endif %}
+        </ul>
+        </nav> -->
+
+        {% if comments_page %}
+        {% include 'helpdesk/admin_parts/page_navigation.html' with navigation=data.navigation only %}
+
+        <div class="comment-list">
+            {% for comment in comments_page %}
+            <div id="comment-{{ comment.id }}" class="comment{% if comment.is_from_support_team %} comment-support-team{% endif %}">
+                <div class="comment-topbar">
+                  <a class="comment-reply-link" href="{% url 'admin:helpdesk_ticket_new_comment' ticket_id=ticket.id %}?comment-id={{ comment.id }}"><span class="comment-num">#{{ comment.get_position }}</span></a> <span class="comment-author" style="color: #41826a">{% if comment.is_from_support_team %}<span class="pill support-team-pill">{% trans "Support Team" %}</span>{% endif %}{{ comment.get_author_name }}</span>
+                  <!--<span class="online">online</span>-->
+
+                  <div class="comment-timestamp text-faded">
+                      {{ comment.date | naturaldatetime}}
+                  </div>
+                </div>
+                <div class="comment-body">
+                    <div class="comment-content">
+                      {{ comment.text }}
+                    </div>
+                    {% if comment.has_attachments %}                                            
+                    <div class="comment-attachments"><span class="attachment fa fa-paperclip"></span> {% trans 'Attachments:' %} <ul>{% for attachment in comment.attachments.all %}<li><a class="link2" href="#">{{ attachment.file_name }}</a></li>{% endfor %}</ul></div>
+                    {% endif %}
+
+                    {% comment %}
+                    <div class="comment-footer">
+                         <div class="like-box"><button class="like-button" data-comment-id="{{ comment.id }}" data-like="">👍</button>{% if comment.likes_count %}<br>{{ comment.likes_count }} like/s{% endif %}</div> #}
+                        {# <a class="right" style="color: inherit; opacity: 0.8" href="#"><i class="fas fa-reply"></i></a>
+                    </div>
+                    {% endcomment %}
+
+                </div>  
+            </div>
+            {% endfor %}
+        </div> <!-- /.comment-list -->
+        {% endif %}
+
+        <a name="comments-bottom"></a>
+        {% if is_paginated %} 
+        {% include 'helpdesk/admin_parts/page_navigation.html' with navigation=navigation only %}
+        {% endif %}
+
+        <div id="replybox">
+            <p><b>{% trans "Reply:" %}</b></p>        
+            <form id="reply-form" action="?per-page={{ comments_page.paginator.per_page }}#reply-form" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <input type="hidden" name="action_name" value="create_comment">
+                <input type="hidden" name="ticket" value="{{ ticket.id }}">
+                <textarea class="reply-textarea" name="text"></textarea>
+                {{ new_comment_form.create_comment.errors.text }}
+                <button class="btn btn-submit" type="submit">{% trans "Send" %}</button>
+                <div id="attachments">
+                    <ul id="attachment-list" class="attachment-list"></ul>
+                    <p>{% trans "Add attachment to previous comment:" %}</p>
+                    <input name="attachments[]" type="file" multiple>
+                </div>
+            </form>
+        </div>
+    </div> <!-- /.ticket-interior -->
+
+</div> <!-- /#ticket-comments -->
+{% endblock %}

@@ -1,0 +1,35 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{% url 'ticket_list' %}">Ticketus</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="{% url 'ticket_list' %}">View tickets</a></li>
+                <li><a href="{% url 'new_ticket' %}">New ticket</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <ul class="nav navbar-nav">
+                {% if user.is_authenticated %}
+                <li><span class="same-as-a">Logged in as {{ user }}</span></li>
+                <li><a href="{% url 'account_logout' %}?next={{ request.path }}">Log out</a></li>
+                {% else %}
+                <li><a href="{% url 'account_login' %}?next={{ request.path }}">Log in</a></li>
+                {% endif %}
+            </ul>
+                <form class="navbar-form navbar-right">
+                    <div class="form-group">
+                        <input type="text" placeholder="Search tickets" class="form-control">
+                    </div>
+                    <button type="submit" class="btn btn-info">Search</button>
+                </form>
+            </ul>
+        </div>
+    </div>
+</nav>

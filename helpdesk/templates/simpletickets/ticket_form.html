@@ -1,0 +1,17 @@
+{% extends 'simpletickets/tickets_base.html' %}
+{% load bootstrap %}
+{% block tickets %}
+{% if request.user.is_staff %}
+<h3>{{ form.instance.description }}</h3>
+
+{% endif %}
+<form method="post">
+    {% csrf_token %}
+    {{ form|bootstrap }}
+    Fields marked with * are mandatory
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+</form>
+
+{% endblock tickets %}

@@ -1,0 +1,75 @@
+.jumbotron {
+    margin-bottom: 0;
+    padding: 20px 0 40px 0;
+}
+
+.ticket-meta {
+    margin-bottom: 30px;
+}
+
+.comments .panel {
+    margin-bottom: 0;
+    border-left-width: 5px;
+    border-radius: 3px;
+    border-left-color: #5bc0de;
+}
+
+.comments .panel-body p:last-of-type {
+    margin-bottom: 0;
+}
+
+.comment-join {
+    height: 30px;
+}
+
+.border-left {
+    border-left: 1px solid #eee;
+}
+
+.hover {
+    cursor: pointer;
+}
+
+table#tickets {
+    margin-top: 30px;
+}
+
+#new-comment {
+    margin-top: 50px;
+}
+#new-comment .glyphicon {
+    margin-right: 5px;
+}
+#new-comment .panel-heading {
+    padding: 0;
+}
+#new-comment .nav-tabs {
+    border-bottom: 0;
+}
+#new-comment .nav-tabs>li.active>a,
+#new-comment .nav-tabs>li.active>a:hover, 
+#new-comment .nav-tabs>li.active>a:focus {
+    border: none;
+    border-right: 1px solid #ddd;
+    padding: 11px 15px;
+}
+
+.ticket-header a {
+    color: #333;
+}
+.ticket-meta .glyphicon {
+    margin-right: 7px;
+}
+.ticket-meta .badge .glyphicon {
+    margin-right: 0;
+}
+
+.jumbotron #preview-html p {
+    font-size: 16px;
+}
+
+.tags .badge {
+    font-size: 16px;
+    font-weight: 400;
+    margin: 2px;
+}

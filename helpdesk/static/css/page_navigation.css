@@ -1,0 +1,92 @@
+
+.page-navigation {
+    clear: both;
+    margin: 6px 0 4px;
+    vertical-align: middle;
+}
+
+
+.page-navigation .items-per-page {
+    display: inline-block;
+    color: #555;
+    line-height: 30px;
+    font-size: 12px;
+}
+
+.page-navigation .items-per-page > select {
+    margin-bottom: 6px;
+    width: 56px;
+    padding: 2px;
+    line-height: 28px;
+    height: 28px;
+}
+
+.page-navigation .pagination {
+    float: right;
+    display: block;
+    height: 28px;
+    margin-top: 3px;
+    cursor: default;
+    color: #555;
+}
+
+
+.page-navigation .pagination .total-pages {
+    margin-right: 2px;
+}
+
+.page-navigation .pagination > .page-navigation {
+    display: inline-block;
+    margin-left: 7px;
+}
+
+.page-navigation .pagination .paging-info {
+    display: inline-block;
+}
+
+.page-navigation .pagination .pagination-btn {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+}
+
+.page-navigation .pagination a.pagination-btn {  
+    cursor: pointer;
+    color: rgb(76, 76, 76);
+    text-decoration: none;
+}
+
+.page-navigation .pagination .pagination-disabled-btn {
+    height: 16px;
+    border-color: #ddd;
+    background: #f7f7f7;
+    color: #a0a5aa;
+}
+
+.page-navigation .pagination .pagination-btn > .pagination-btn-text {
+    display: inline-block;
+    min-width: 17px;
+    border: 1px solid #ccc;
+    padding: 3px 6px;
+    background: #e5e5e5;
+    font-size: 16px;
+    line-height: 1;
+    font-weight: 400;
+    text-align: center;
+}
+
+.page-navigation .pagination a.pagination-btn:focus > .pagination-btn-text, .page-navigation .pagination a.pagination-btn:hover > .pagination-btn-text {
+    border-color: #5b9dd9;
+    color: #fff;
+    background: #00a0d2;
+    box-shadow: none;
+    outline: 0;
+}
+
+.page-navigation .pagination .current-page {
+    margin: 0 2px 0 0;
+    padding: 4px 5px;
+    font-size: 13px;
+    text-align: center;
+}

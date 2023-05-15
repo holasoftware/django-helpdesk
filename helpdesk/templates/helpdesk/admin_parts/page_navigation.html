@@ -1,0 +1,39 @@
+<nav id="{{ navigation.id }}" class="page-navigation">
+    {% if navigation.page_sizes %}
+    <form method="GET" style="display: inline-block">
+    <div class="items-per-page">Show
+        <select name="per-page" data-subtmit-on-change="1">
+            <option value="">----</option>
+            {% for page_size in navigation.page_sizes %}
+            <option value="{{ page_size }}"{% ifequal navigation.page.paginator.per_page page_size %} selected="selected"{% endifequal %}>{{ page_size }}</option>
+            {% endfor %}
+        </select> Items
+    </div>
+    </form>
+    {% endif %}
+
+    <div class="pagination">
+        <span class="num-items">{{ navigation.page.paginator.count }} {{ navigation.navigation.item_verbose_name | default:'item/s' }}</span>
+        <div class="page-navigation">
+            {% if navigation.page.has_previous %}
+                <a href="?page=1&per-page={{ navigation.page.paginator.per_page }}{% if navigation.extra_query_string %}&{{ navigation.extra_query_string }}{% endif %}" class="first-page-btn pagination-btn"><span class="screen-reader-text">First page</span><span class="pagination-btn-text">«</span></a>
+                <a href="?page={{ navigation.page.previous_page_number }}&per-page={{ navigation.page.paginator.per_page }}{% if navigation.extra_query_string %}&{{ navigation.extra_query_string }}{% endif %}" class="prev-page-btn pagination-btn"><span class="screen-reader-text">Previous page</span><span class="pagination-btn-text">‹</span></a>
+            {% else %}
+                <div class="first-page-btn pagination-btn pagination-disabled-btn"><span class="screen-reader-text">First page</span><span class="pagination-btn-text">«</span></div>
+                <div class="prev-page-btn pagination-btn pagination-disabled-btn"><span class="screen-reader-text">Previous page</span><span class="pagination-btn-text">‹</span></div>
+            {% endif %}
+
+            <div class="paging-info"><label for="{{ navigation.navigation_id }}--current-page" class="screen-reader-text">Current Page</label><input class="current-page page-input" id="{{ navigation.navigation_id }}--current-page" type="text" name="page" value="{{ navigation.page.number }}" size="3" aria-describedby="navigation paging"> of <span class="total-pages">{{ navigation.page.paginator.num_pages }}</span></div>
+
+            {% if navigation.page.has_next %}
+                <a href="?page={{ navigation.page.next_page_number }}&per-page={{ navigation.page.paginator.per_page }}{% if navigation.extra_query_string %}&{{ navigation.extra_query_string }}{% endif %}" class="next-page-btn pagination-btn"><span class="screen-reader-text">Next page</span><span class="pagination-btn-text">›</span></a>
+                <a href="?page={{ navigation.page.paginator.num_pages }}&per-page={{ navigation.page.paginator.per_page }}{% if navigation.extra_query_string %}&{{ navigation.extra_query_string }}{% endif %}" class="last-page-btn pagination-btn"><span class="screen-reader-text">Last page</span><span class="pagination-btn-text">»</span></a>
+            {% else %}
+                <div class="next-page-btn pagination-btn pagination-disabled-btn"><span class="screen-reader-text">Next page</span><span class="pagination-btn-text">›</span></div>
+                <div class="last-page-btn pagination-btn pagination-disabled-btn"><span class="screen-reader-text">Last page</span><span class="pagination-btn-text">»</span></div>
+            {% endif %}
+        </div>
+    </div>
+
+    <br class="clear">
+</nav>

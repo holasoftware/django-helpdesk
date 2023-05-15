@@ -1,0 +1,216 @@
+#ticket-comments {
+    font-family: 'Open Sans', sans-serif;
+    color: #545454;
+    font-size: 16px;
+    line-height: 1.5;
+    overflow-x: hidden;
+    box-sizing: border-box;
+    min-height: 100vh;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#ticket-comments .comment-reply-link {
+    color: inherit;
+}
+
+#ticket-comments #replybox {
+    margin-top: 30px;
+}
+
+#ticket-comments #replybox .reply-textarea {
+    margin-bottom: 5px;
+}
+
+#ticket-comments > .ticket-interior {
+    /*margin: 20px;*/
+}
+
+#ticket-comments h1.subject {
+    font-weight: 700;
+    margin-bottom: 10px;
+    margin-top: 0;
+    margin-left: 0;
+    margin-right: 0;
+    font-size: 32px;
+}
+
+#ticket-comments .comment-list {
+    background-color: white;
+    padding: 0;
+    margin: 10px 0 10px 0;
+    box-shadow: 3px 3px 1px rgba(136, 136, 136, 0.09);
+    border: 1px solid grey;
+}
+
+#ticket-comments .comment {
+    padding: 17px 20px 17px 20px;
+    margin: 0;           
+    position: relative;
+}
+
+#ticket-comments .comment.comment-support-team {
+    background-color: aliceblue;
+}
+/*
+#ticket-comments .comment + .comment {
+    margin-top: 10px; 
+}
+*/
+
+#ticket-comments .comment > .comment-topbar .support-team-pill {
+    background-color: midnightblue;
+    font-size: 14px;
+    margin-right: 8px;
+}
+
+#ticket-comments .comment > .comment-topbar {
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+}
+
+#ticket-comments .comment > .comment-body {           
+    padding: 0;
+    margin: 0;
+}
+
+#ticket-comments .comment .comment-timestamp {
+    font-size: 0.9em;
+    display: inline-block;
+    margin-left: 5px;
+}
+
+#ticket-comments .comment .comment-content {
+    padding-top: 2px;
+}
+
+#ticket-comments .comment .comment-footer {
+    overflow: hidden;
+    min-height: 25px;
+}
+
+#ticket-comments .comment .comment-attachments {
+    margin-top: 20px;
+    font-size: 14px;
+} 
+
+#ticket-comments .comment .comment-attachments ul {
+    margin-top: 0;
+}
+
+#ticket-comments .comment .like-box {
+    float: right;
+    text-align: right;
+}
+
+#ticket-comments .comment .comment-num {
+    font-weight: bold;
+}
+
+#ticket-comments p {
+    margin: 0;
+}
+
+#ticket-comments #edit-category-btn {
+    margin-left: 6px;
+}
+
+
+#ticket-comments .link1 {
+    border: none;
+    color: rgb(76, 76, 76);
+    text-decoration: underline;
+    background: transparent;
+    outline: 0;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+}
+
+#ticket-comments .link1:hover {
+    color: #41826a;
+}
+
+
+#ticket-comments .link2 {
+    color: #57AD8D;
+    text-decoration: none;
+    background: transparent;
+}
+
+#ticket-comments .link2.link2-unstyled {
+    color: inherit;
+}
+
+#ticket-comments .link2:hover {
+    color: #41826a;
+    cursor: pointer;
+    transition: all .3s ease;
+}
+
+
+#ticket-comments .num-replies {
+    color: rgba(84, 84, 84, 0.7);
+    font-size: 15px;
+    margin-top: 2px;
+    line-height: 1.5;
+    margin-top: 10px;
+}
+
+
+@media (max-width: 1024px) {
+    #ticket-comments .ticket-interior {
+         max-width: 97%;
+    }
+}
+
+#ticket-comments .ticket-metadata {
+    margin-top: 10px;
+}
+
+#ticket-comments .ticket-actions {
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
+
+#ticket-comments .ticket-actions > button + button {
+    margin-left: 6px;
+}
+
+#ticket-comments .ticket-status {
+    font-size: 12px;
+    font-weight: normal;
+    color: white !important;
+    padding: 5px;
+    border-radius: 7px;
+    position: relative;
+    top: -10px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+#ticket-comments .ticket-status:hover {
+    color: white;
+}
+
+#ticket-comments .ticket-status.ticket-opened-status {
+    /* indigo, navy, midnightblue, rebeccapurple */
+    background-color: darkblue;
+}
+
+#ticket-comments .ticket-status.ticket-closed-status {
+    /* crimson, darkmagenta, firebrick */
+    background-color: firebrick;
+}
+
+#ticket-comments .reply-textarea {
+    width: 100%;
+    height: 100px;
+}
+
+#ticket-comments #attachments {
+    margin-top: 10px;
+}
+

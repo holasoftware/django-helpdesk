@@ -1,0 +1,12 @@
+{% extends 'wp_hosting_admin/admin_page.html' %}
+
+{% load i18n %}
+{% extends 'admin/base_site.html' %}
+{% load i18n static %}
+
+{% block breadcrumbs %}
+    <div class="breadcrumbs">
+    <a href="{% url 'admin:index' %}">{% translate 'Home' %}</a>
+    &rsaquo; <a href="{% url 'admin:app_list' app_label='helpdesk' %}">{% translate 'Helpdesk' %}</a> &rsaquo; <a href="{% url 'admin:helpdesk_ticket_changelist' %}">{% translate 'Ticket' %}</a> &rsaquo; <a href="{% url 'admin:helpdesk_ticket_change' ticket.id %}">{{ ticket }}</a>
+    </div>
+{% endblock %}

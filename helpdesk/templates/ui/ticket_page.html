@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+
+{% block extra_css %}
+<link href="{% static "css/ticket.css" %}" rel="stylesheet">
+{% endblock %}
+
+{% block jumbotron_inner %}
+    <div class="ticket-header row" id="ticket-{{ ticket.id }}">
+        <div class="col-md-12 col-xs-12">
+            <a href="{{ ticket.get_absolute_url }}"><h1>{{ ticket.id }}: {{ ticket.title }}</h1></a>
+        </div>
+    </div>
+    <div class="ticket-meta">
+        <div class="row">
+            <div class="col-md-2 col-xs-4">Created by:</div>
+            <div class="col-md-6 col-xs-8"><a href="{% url 'ticket_list_by_user' username=ticket.requester %}"><span class="badge"><span class="glyphicon glyphicon-user"></span> {{ ticket.requester }}</a></span></div>
+        </div>
+        <div class="row">
+            <div class="col-md-2 col-xs-4">Created at:</div>
+            <div class="col-md-6 col-xs-8">{{ ticket.created_at }}</div>
+        </div>
+        <div class="row">
+            <div class="col-md-2 col-xs-4">Edited at:</div>
+            <div class="col-md-6 col-xs-8">{% if ticket.edited_at %}{{ ticket.edited_at }}{% else %}Never edited{% endif %}</div>
+        </div>
+        {% if ticket.imported_key %}
+        <div class="row">
+            <div class="col-md-2 col-xs-4">Imported from:</div>
+            <div class="col-md-6 col-xs-8"><a href="{{ ticket.imported_key }}">{{ ticket.imported_key }}</a></div>
+        </div>
+        {% endif %}
+        <div class="row">
+            <div class="col-md-2 col-xs-4"><span class="glyphicon glyphicon-tags"></span>Tags:</div>
+            <div class="col-md-6 col-xs-8">{% include "includes/ticket_tags.html" %}</div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-xs-12">
+            <div class="btn-group" role="group" aria-label="Comment buttons">
+                <a href="#new-comment" class="btn btn-primary">New comment</a>
+                {% if ticket.comment_set.count > 0 %}
+                <a href="#last-comment" class="btn btn-default">Go to latest comment</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block body %}
+    {% if ticket.comment_set.count > 0 %}
+        {% include "includes/connecter_border.html" %}
+        <div class="comments">
+            {% for comment in ticket.comment_set.all %}
+            <div class="row" id="comment-{{ forloop.counter }}">
+                {% if forloop.last %}
+                <a name="last-comment"></a>
+                {% endif %}
+                <div class="panel panel-default">
+                    <div class="panel-heading clearfix">
+                        <div class="pull-left">
+                            <span class="small"><strong>Comment {{ forloop.counter }}</strong> at {{ comment.created_at }} ({{ comment.commenter }})</span>
+                        </div>
+                        <div class="pull-right">
+                            <a href="#comment-{{ forloop.counter }}" title="Permalink"><span class="glyphicon glyphicon-link"></span></a>
+                        </div>
+                    </div>
+                    <div class="panel-body">{{ comment.text|safe }}</div>
+                </div>
+            </div>
+
+            {% if not forloop.last %}
+            {% include "includes/connecter_border.html" %}
+            {% endif %}
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {% include "includes/new_comment_box.html" %}
+{% endblock %}
